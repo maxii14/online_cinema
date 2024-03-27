@@ -1,0 +1,27 @@
+.contentWrapper {
+    display: flex;
+    overflow: hidden;
+}
+
+.actorsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 81%;
+}
+
+.actorDescription{
+    margin-top: 25px;
+    margin-left: 25px;
+    display: flex;
+    flex-direction: row;
+}
+
+.actorImg{
+    height: 140px;
+    width: 95px;
+    margin-right: 10px;
+}
+
+span {
+    cursor: default;
+}

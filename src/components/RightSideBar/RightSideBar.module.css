@@ -1,0 +1,72 @@
+.rightSideBar {
+    width: 26%;
+    max-width: 26%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    overflow: hidden;
+    border-left: 1px solid #323338;
+}
+
+.rightSideBar .section { 
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+.rightSideBar .sectionTitle {
+    font-weight: bold;
+    cursor: default;
+}
+
+.movieContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.movieContainer:hover {
+    background-color: #47484d;
+    transition: 0.1s linear;
+}
+
+
+.movieContainer .movieImage {
+    margin-right: 10px;
+    height: 85px;
+}
+
+.movieContainer .movieImage img {
+    height: 85px; /*If change img height, remember to change .movieImage*/
+    width: 60px;
+    border-radius: 0;
+}
+
+.movieContainer .movieInfo {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.movieContainer .movieName {
+    font-weight: bold;
+    color: #E10002;
+}
+
+.movieContainer span {
+    cursor: pointer;
+}
+
+.movieContainer .watchedToTime{
+    margin-top: 15px;
+}
+
+.showFullListButton {
+    background-color: #E10002;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}

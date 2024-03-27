@@ -1,0 +1,19 @@
+.videoInfoWrapper {
+    margin-left: 5%;
+}
+
+.movieName {
+    color: #E10002;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 10px
+}
+
+.desc_item {
+    margin-bottom: 10px;
+}
+
+.desc_item span {
+    font-weight: bold;
+}

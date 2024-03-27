@@ -1,0 +1,51 @@
+.leftSideBar {
+    width: 19%;
+    max-width: 19%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    overflow: hidden;
+    border-right: 1px solid #323338;
+}
+
+.leftSideBar ul {
+    width: fit-content;
+    list-style-type: none;
+    margin-block-start: 5px;
+    padding-inline-start: 10px;
+}
+
+.leftSideBar span {
+    cursor: default;
+}
+
+.leftSideBar li {
+    width: fit-content;
+    cursor: pointer;
+    margin-top: 10px;
+    color: #696A71;
+    font-weight: bold;
+}
+
+.leftSideBar li svg {
+    font-size: 20px;
+    margin-bottom: -4px;
+    margin-right: 5px;
+}
+
+.leftSideBar li:hover {
+    color: #9A9CA7;
+}
+
+.leftSideBar li:hover svg {
+    color: #E10002;
+}
+
+.leftSideBar .section { 
+    padding-left: 30px;
+}
+
+.leftSideBar .sectionTitle {
+    color: #9A9CA7;
+    font-weight: bold;
+}

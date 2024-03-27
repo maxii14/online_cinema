@@ -1,0 +1,19 @@
+.actorsListContent {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.actorsList{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 25px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 25px;
+    cursor: default;
+}

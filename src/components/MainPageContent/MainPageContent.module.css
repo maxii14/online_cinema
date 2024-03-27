@@ -1,0 +1,12 @@
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    /*width: 745px;*/
+    width: 55%;
+    max-width: 55%;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 8px;
+    text-align: center;
+}

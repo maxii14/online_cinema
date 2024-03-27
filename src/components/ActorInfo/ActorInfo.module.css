@@ -1,0 +1,11 @@
+.actorInfoWrapper {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.actorName {
+    color: #E10002;
+    font-weight: bold;
+    margin-bottom: 5px;
+}

@@ -1,0 +1,9 @@
+.contentWrapper {
+    display: flex;
+    overflow: hidden;
+}
+
+.actorList {
+    padding-left: 25px;
+    width: 100%;
+}

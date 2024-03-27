@@ -1,0 +1,21 @@
+.moviesListContent {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    /*width: 81%;
+    min-width: 81%;*/
+    padding-left: 25px;
+}
+
+.moviesList {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 25px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 25px;
+    cursor: default;
+}

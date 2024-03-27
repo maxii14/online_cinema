@@ -1,0 +1,50 @@
+import React, { useState, useEffect, FC, useRef, LegacyRef } from "react"
+import { IActor, IMovie } from "../../types/types";
+import VideoInfo from "./VideoInfo/VideoInfo";
+import styles from "./VideoPlayer.module.css"
+import ActorListContent from "../ActorsListContent/ActorsListContent";
+import VideoGetData from "../VideoGetData/VideGetData.jsx";
+
+
+interface VideoPlayerProps {
+    movie: IMovie,
+    actors: IActor[],
+    callbackChangeIsInFavorites: (id: number, isInFavorites: boolean) => void,
+}
+
+const VideoPlayer: FC<VideoPlayerProps> = ({movie, actors, callbackChangeIsInFavorites}) => {
+    
+    const videoElement = useRef(null);
+
+    const handleLoadedMetadata = () => {
+        const video = videoElement.current;
+        if (!video) return;
+        //console.log(`The video is ${videoElement.current} seconds long.`);
+      };
+
+      /*var audio = new Audio('../../videos/Deca_Joins.mp3')
+      audio.onloadedmetadata = function() {
+        console.log("dsfsdf")
+      }
+      audio.addEventListener("loadedmetadata", (e) => {
+        console.log(e)
+      })*/
+
+
+      
+    return (
+        <div className={styles.videoPlayerWrapper}>
+            <video controls ref={videoElement} onLoadedMetadata={handleLoadedMetadata}>
+                <source src={require('../../videos/prodigy.mp4')} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
+                <p>В данном браузере невозможно запустить видео.</p>
+            </video>
+            {/*<VideoGetData 
+                src={require('../../videos/prodigy.mp4')} />*/}
+            <VideoInfo movie={movie} callbackChangeIsInFavorites={callbackChangeIsInFavorites}/>
+            <div className={styles.actorListWrapper}><ActorListContent actors={actors} /></div>
+            
+        </div>
+    )
+};
+
+export default VideoPlayer;

@@ -1,0 +1,16 @@
+.videoPlayerWrapper {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 81%;
+}
+
+.videoPlayerWrapper video {
+    margin: 0 auto;
+    width: 90%;
+    height: 85vh;
+}
+
+.actorListWrapper {
+    margin-left: 5%;
+}
