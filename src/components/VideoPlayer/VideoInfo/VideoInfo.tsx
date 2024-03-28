@@ -31,27 +31,46 @@ const VideoInfo: FC<VideoInfoComponent> = ({movie, callbackChangeIsInFavorites})
     }, [movie]);
 
     const addToFavorites = () => {
-        addInFavRef.current!.hidden = true; 
-        removeFromFavRef.current!.hidden = false;
 
-        callbackChangeIsInFavorites(movie.id, true);
-        // var user = localStorage.getItem("userData");
-        // user = (user === null) ? "" : user;
+        var user = localStorage.getItem("userData");
+        user = (user === null) ? "" : user;
         
-        // axios.post(`${API_URL}/movies/addfavorites`, 
-        //     {"userid": JSON.parse(user).id, "movieid": movie.id},
-        //     {headers: {Authorization: JSON.parse(user).token}}
-        // )
-        //     .then(response => {console.log(response)})
-        //     .catch(() => {});
+        axios.post(`${API_URL}/movies/addfavorites`, 
+            {
+                "userid": JSON.parse(user).id, 
+                "movieid": movie.id
+            },
+            {headers: {Authorization: JSON.parse(user).token}}
+        )
+        .then(response => {
+            //console.log(response);
+            addInFavRef.current!.hidden = true; 
+            removeFromFavRef.current!.hidden = false;
+            callbackChangeIsInFavorites(movie.id, true);
+        })
+        .catch(() => {});
     }
 
     const removeFromFavorites = () => {
-        addInFavRef.current!.hidden = false; 
-        removeFromFavRef.current!.hidden = true;
+        
+        var user = localStorage.getItem("userData");
+        user = (user === null) ? "" : user;
 
-        callbackChangeIsInFavorites(movie.id, false);
-        // delete logic
+        axios.delete(`${API_URL}/movies/deletefavorite`, {
+            headers: {Authorization: JSON.parse(user).token},
+            data: {
+                "userid": JSON.parse(user).id, 
+                "movieid": movie.id
+            }
+        }
+        ).then(response => {
+            if (response.data["deleted"] == true) {
+                addInFavRef.current!.hidden = false; 
+                removeFromFavRef.current!.hidden = true;
+                callbackChangeIsInFavorites(movie.id, false);
+            }
+        })
+        .catch(() => {});
 
     }
     
@@ -61,8 +80,8 @@ const VideoInfo: FC<VideoInfoComponent> = ({movie, callbackChangeIsInFavorites})
            <p className={styles.movieName}>{movie.name}</p>
 
            <div className="buttonsSection">
-                <button ref={addInFavRef} onClick={addToFavorites}><AddInFavorites id="add-in-favorites-star"/></button>
-                <button ref={removeFromFavRef} onClick={removeFromFavorites}><RemoveFromFavorites id="remove-from-favorites-star"/></button>
+                <button ref={addInFavRef} onClick={addToFavorites} title="Добавить в избранное" className={styles.add_remove_from_favorites_button}><RemoveFromFavorites /></button>
+                <button ref={removeFromFavRef} onClick={removeFromFavorites} title="Убрать из избранного" className={styles.add_remove_from_favorites_button}><AddInFavorites /></button>
            </div>
            
            <p className={styles.desc_item}><span>Описание:</span> {movie.description}</p>

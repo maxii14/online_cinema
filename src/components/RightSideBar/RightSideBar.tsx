@@ -13,8 +13,8 @@ const RightSideBar: FC<RightSideBarProps> = ({historyMovies, favoritesMovies}) =
     
     return (
         <div className={styles.rightSideBar}>
-           <HistorySection histroryMovies={historyMovies}/>
            <FavoritesSection favoritesMovies={favoritesMovies}/>
+           <HistorySection histroryMovies={historyMovies}/>
         </div>
     )
 };

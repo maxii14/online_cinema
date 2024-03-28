@@ -17,3 +17,13 @@
 .desc_item span {
     font-weight: bold;
 }
+
+.add_remove_from_favorites_button {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #282c34;
+    cursor: pointer;
+    padding-top: 5px;
+}

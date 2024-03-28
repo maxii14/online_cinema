@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer>{
@@ -14,6 +15,9 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
 
     @Query(value="SELECT movieid FROM userfavorites WHERE userid = ?1", nativeQuery=true)
     List<Integer> getFavoritesByUserId(Integer id);
+
+    @Query(value="SELECT id FROM userfavorites WHERE userid = ?1 AND movieid = ?2", nativeQuery=true)
+    Optional<Integer> getFavoriteByUserIdAndMovieId(Integer userid, Integer movieid);
 
     @Query(value="SELECT movieid, stoppedontiming FROM userhistory WHERE userid = ?1", nativeQuery=true)
     List<Object> getHistoryByUserId(Integer id);

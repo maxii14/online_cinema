@@ -18,7 +18,7 @@ const FavoritesSection: FC<FavoritesSectionProps> = ({favoritesMovies}) => {
                     key={movie.id}
                     movie={movie}
                 />
-            )) : <p>Ошибка. Фильмы не найдены.</p>}
+            )) : <p>Список пуст.</p>}
             <Link to={`/movies/favorites`} >
                 <button className={styles.showFullListButton}>Посмотреть весь список</button>
             </Link>
