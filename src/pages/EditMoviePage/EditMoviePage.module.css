@@ -21,20 +21,20 @@
     margin-top: 10px;
 }
 
-textarea {
+.content .editFields textarea {
     resize: none;
     background-color: #232428;
     color: #fff;
     font-size: 15px;
 }
 
-select {
+.content .editFields select {
     background-color: #232428;
     color: #fff;
     font-size: 15px;
 }
 
-button {
+.content .editFields button {
     background-color: #232428;
     color: #fff;
     font-size: 20px;
@@ -52,6 +52,7 @@ button {
 
 }
 
-.buttonsSave {
+
+.content .editFields .buttonsSave {
     background-color: green;
 }
