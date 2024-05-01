@@ -11,7 +11,7 @@ const MovieCard: FC<MovieCardProps> = ({movie}) => {
 
     return (
         
-        <div className={styles.movieCard}>
+        <div className={styles.movieCard} title={movie.name}>
             <Link to={`/movie/${movie.id}`}>
                 <img src={movie.imgpath} alt="Фото не найдено" />
             </Link>

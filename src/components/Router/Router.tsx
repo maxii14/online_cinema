@@ -9,6 +9,8 @@ import ActorsListPage from "../../pages/ActorsListPage/ActorsListPage";
 import ActorPage from "../../pages/ActorPage/ActorPage";
 import SignInPage from "../../pages/SignInPage/SignInPage";
 import SignUpPage from "../../pages/SignUpPage/SignUpPage";
+import SettingsPage from "../../pages/SettingsPage/SettingsPage";
+import EditMoviePage from "../../pages/EditMoviePage/EditMoviePage";
 
 const API_URL = 'http://localhost:8081/api/v1'
 
@@ -146,6 +148,10 @@ const Router:FC = () => {
                 <Route path='/signin' element={<SignInPage type="link" callbackSaveUser={saveUser}/>} />
                 <Route path='/signout' element={<SignInPage type="signout" callbackSaveUser={saveUser}/>} />
                 <Route path='/signup' element={<SignUpPage />} />
+
+                <Route path='/settings' element={<SettingsPage movies={movies} actors={actors}/>} />
+                <Route path="/editmovie/:id" element={<EditMoviePage movies={movies} />} />
+                <Route path="/editactor/:id" element={<p>edit actor</p>} />
 
                 <Route path='/movies/history' element={<MoviesListPage 
                     movies={historyMovies}

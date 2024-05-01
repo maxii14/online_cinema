@@ -1,0 +1,50 @@
+.contentWrapper {
+    display: flex;
+    overflow: hidden;
+}
+
+.tabsAndComponentWrapper {
+    padding-top: 25px;
+    width: 81%;
+    max-width: 81%;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 25px;
+    cursor: default;
+    margin-left: 25px;
+}
+
+.tabs {
+    margin-top: 20px;
+    margin-left: 25px;
+}
+
+.tabs button {
+    color: #fff;
+    background-color: #232428;
+    border-top: 1px solid #696A71;
+    border-left: 1px solid #696A71;
+    border-right: 1px solid #696A71;
+    border-bottom: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.tabs button:hover {
+    background-color: #696A71;
+}
+
+.tab .moviesTab {
+    background-color: #696A71;
+}
+
+.component {
+    padding-left: 25px;
+    border-top: 1px solid #696A71;
+}
+

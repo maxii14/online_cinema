@@ -15,9 +15,6 @@ public class User {
         this.id = id;
     }
 
-    @Transient
-    public String np;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
@@ -39,4 +36,10 @@ public class User {
 
     @Column(name = "activity")
     public LocalDateTime activity;
+
+    @Column(name = "role")
+    public String role;
+
+    @Column(name = "blocked")
+    public boolean blocked;
 }

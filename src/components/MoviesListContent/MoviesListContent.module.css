@@ -1,9 +1,9 @@
 .moviesListContent {
-    padding-top: 25px;
     display: flex;
     flex-direction: column;
     /*width: 81%;
     min-width: 81%;*/
+    padding-top: 25px;
     padding-left: 25px;
 }
 

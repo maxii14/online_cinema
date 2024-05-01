@@ -1,0 +1,12 @@
+.moviesEditListContent {
+    display: flex;
+    flex-direction: column;
+    /*width: 81%;
+    min-width: 81%;*/
+}
+
+.moviesEditList {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+}

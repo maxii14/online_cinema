@@ -16,9 +16,16 @@ const VideoPlayer: FC<VideoPlayerProps> = ({movie, actors, callbackChangeIsInFav
     
     const videoElement = useRef(null);
 
+    const [videoLink, setVideoLink] = useState("http://localhost:8082/movie/prodigy")
+
+    useEffect(() => {
+        
+    }, [movie])
+
     const handleLoadedMetadata = () => {
         const video = videoElement.current;
         if (!video) return;
+        console.log(video)
         //console.log(`The video is ${videoElement.current} seconds long.`);
       };
 
@@ -35,7 +42,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({movie, actors, callbackChangeIsInFav
     return (
         <div className={styles.videoPlayerWrapper}>
             <video controls ref={videoElement} onLoadedMetadata={handleLoadedMetadata}>
-                <source src={require('../../videos/prodigy.mp4')} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
+                <source src="http://localhost:8082/movie/prodigy" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
                 <p>В данном браузере невозможно запустить видео.</p>
             </video>
             {/*<VideoGetData 

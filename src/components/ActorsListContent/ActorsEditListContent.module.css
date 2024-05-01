@@ -1,0 +1,10 @@
+.actorsEditListContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.actorsEditList{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+}

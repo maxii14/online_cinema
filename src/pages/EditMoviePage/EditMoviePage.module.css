@@ -1,0 +1,57 @@
+.contentWrapper {
+    display: flex;
+    overflow: hidden;
+}
+
+.content {
+    margin-top: 25px;
+    margin-left: 25px;
+    display: flex;
+    flex-direction: row;
+    width: 71%;
+    justify-content: center;
+}
+
+.content .editFields {
+    display: flex;
+    flex-direction: column; 
+}
+
+.content .editFields span {
+    margin-top: 10px;
+}
+
+textarea {
+    resize: none;
+    background-color: #232428;
+    color: #fff;
+    font-size: 15px;
+}
+
+select {
+    background-color: #232428;
+    color: #fff;
+    font-size: 15px;
+}
+
+button {
+    background-color: #232428;
+    color: #fff;
+    font-size: 20px;
+    width: fit-content;
+    outline: none;
+    padding: 5px 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #696A71;
+}
+
+.buttonsWrapper {
+
+}
+
+.buttonsSave {
+    background-color: green;
+}

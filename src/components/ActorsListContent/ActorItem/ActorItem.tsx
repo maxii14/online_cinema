@@ -10,7 +10,7 @@ interface ActorItemProps {
 const ActorItem: FC<ActorItemProps> = ({actor}) => {
     
     return (
-        <div className={styles.actorItem}>
+        <div className={styles.actorItem} title={actor.name}>
             <Link to={`/actor/${actor.id}`}>
                 <img src={actor.imgpath} alt="Фото не найдено" />
             </Link>

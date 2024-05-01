@@ -6,7 +6,9 @@ import com.example.cinema.models.UserFavorite;
 import com.example.cinema.repositories.MovieRepository;
 import com.example.cinema.repositories.UserFavoritesRepository;
 import com.example.cinema.repositories.UserRepository;
+import com.example.cinema.services.StreamingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,6 +16,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +35,14 @@ public class MovieController {
     MovieRepository movieRepository;
     @Autowired
     UserFavoritesRepository userFavoritesRepository;
+    @Autowired
+    StreamingService streamingService;
+
+    @GetMapping(value = "movie/{title}", produces = "video/mp4")
+    public Mono<Resource> getVideoChunk(@PathVariable String title) {
+        System.out.println(title);
+        return streamingService.getVideo(title);
+    }
 
     @GetMapping("/movies")
     public List<Movie> getAllMovies() {
@@ -66,6 +77,23 @@ public class MovieController {
         uf.userId = credentials.get("userid");
         UserFavorite newUf = userFavoritesRepository.save(uf);
         return new ResponseEntity<Object>(uf, HttpStatus.OK);
+    }
+
+    @PutMapping("/movies/update")
+    public ResponseEntity<Object> updateMovie(@RequestBody Map<String, String> credentials) {
+
+        System.out.println(Integer.parseInt(credentials.get("id")));
+        movieRepository.updateMovie(
+                Integer.parseInt(credentials.get("id")),
+                credentials.get("name"),
+                credentials.get("genre"),
+                credentials.get("description"),
+                Integer.parseInt(credentials.get("date")),
+                credentials.get("imgpath"),
+                credentials.get("videopath"),
+                credentials.get("country"));
+
+        return new ResponseEntity<Object>("Updated successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("/movies/deletefavorite")

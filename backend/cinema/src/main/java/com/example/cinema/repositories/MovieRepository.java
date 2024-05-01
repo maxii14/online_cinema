@@ -2,9 +2,11 @@ package com.example.cinema.repositories;
 
 import com.example.cinema.models.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,12 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
 
     @Query(value="SELECT movieid, stoppedontiming FROM userhistory WHERE userid = ?1", nativeQuery=true)
     List<Object> getHistoryByUserId(Integer id);
+
+    @Transactional
+    @Modifying
+    @Query(value="UPDATE Movie m SET m.name = ?2, m.genre = ?3, m.description = ?4, m.date = ?5, " +
+            "m.imgpath = ?6, m.videopath = ?7, m.country = ?8 WHERE m.id = ?1", nativeQuery=false)
+    void updateMovie(int id, String name, String genre, String description, int date, String imgpath, String videopath, String country);
 
     /*@Query(value="UPDATE cinema.userhistory\n" +
             "inner join\n" +
