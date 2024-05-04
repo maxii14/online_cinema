@@ -14,12 +14,14 @@ interface VideoPlayerProps {
 
 const VideoPlayer: FC<VideoPlayerProps> = ({movie, actors, callbackChangeIsInFavorites}) => {
     
+    const API_URL = "http://localhost:8082/movie/";
+
     const videoElement = useRef(null);
 
-    const [videoLink, setVideoLink] = useState("http://localhost:8082/movie/prodigy")
+    const [videoLink, setVideoLink] = useState("")
 
     useEffect(() => {
-        
+        setVideoLink(`${API_URL}` + `${movie.videopath}`);
     }, [movie])
 
     const handleLoadedMetadata = () => {
@@ -42,11 +44,10 @@ const VideoPlayer: FC<VideoPlayerProps> = ({movie, actors, callbackChangeIsInFav
     return (
         <div className={styles.videoPlayerWrapper}>
             <video controls ref={videoElement} onLoadedMetadata={handleLoadedMetadata}>
-                <source src="http://localhost:8082/movie/prodigy" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
+                <source src={videoLink} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
                 <p>В данном браузере невозможно запустить видео.</p>
             </video>
-            {/*<VideoGetData 
-                src={require('../../videos/prodigy.mp4')} />*/}
+            
             <VideoInfo movie={movie} callbackChangeIsInFavorites={callbackChangeIsInFavorites}/>
             <div className={styles.actorListWrapper}><ActorListContent actors={actors} /></div>
             

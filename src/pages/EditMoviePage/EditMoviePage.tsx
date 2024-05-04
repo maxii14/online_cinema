@@ -64,10 +64,32 @@ const EditMoviePage:FC<EditMoviePageProps> = ({movies}) => {
             .catch();
             nav('/settings');
         }
+        else {
+            alert("Произошла ошибка. Не удалось отредактировать фильм.");
+        }
     }
 
     const undoChangesHandler = () => {
         nav('/settings');
+    }
+
+    const deleteMovieHandler = () => {
+        if (userData !== null && movie !== undefined) {
+            console.log(movie.id)
+            axios.delete(`${API_URL}/movies/delete`, {
+                headers : {Authorization : JSON.parse(userData).token},
+                data: {
+                    "movieid": movie.id
+                }
+            })
+            .then(response => {console.log(response)})
+            .catch();
+
+            nav('/settings');
+        }
+        else {
+            alert("Произошла ошибка. Не удалось удалить фильм.");
+        }
     }
 
 
@@ -89,15 +111,16 @@ const EditMoviePage:FC<EditMoviePageProps> = ({movies}) => {
                         <option>Триллер</option>
                         <option>Детектив</option>
                     </select>
-                    <span>Описание</span><textarea ref={descriptionTextArea} rows={15} cols={40} defaultValue={movie.description} />
+                    <span>Описание</span><textarea ref={descriptionTextArea} rows={13} cols={40} defaultValue={movie.description} />
                     <span>Дата выпуска</span><textarea ref={dateTextArea} rows={1} defaultValue={movie.date} />
                     <span>Страна</span><textarea ref={countryTextArea} rows={1} defaultValue={movie.country} />
                     <span>Ссылка на превью-фото</span><textarea ref={imgPathTextArea} rows={3} defaultValue={movie.imgpath}/>
-                    <span>Ссылка на видео</span><textarea ref={videoPathTextArea} rows={3} defaultValue={movie.videopath}/>
+                    <span>Тег видео</span><textarea ref={videoPathTextArea} rows={1} defaultValue={movie.videopath}/>
 
                     <div className={styles.buttonsWrapper}>
                         <button onClick={makeChangesHandler} className={styles.buttonsSave}>Сохранить</button>
                         <button onClick={undoChangesHandler}>Отменить изменения и вернуться</button>
+                        <button onClick={deleteMovieHandler} className={styles.buttonsDelete}>Удалить фильм</button>
                     </div>
                 </div>
             </div> 

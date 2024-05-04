@@ -17,4 +17,9 @@ public interface UserFavoritesRepository extends JpaRepository<UserFavorite, Int
     @Transactional
     @Query(value="DELETE FROM UserFavorite WHERE userId=:userid AND movieId=:movieid", nativeQuery=false)
     void deleteFavoritesByUserIdAndMovieId(@Param("userid")Integer userid, @Param("movieid")Integer movieid);
+
+    @Modifying
+    @Transactional
+    @Query(value="DELETE FROM UserFavorite WHERE movieId=:movieid", nativeQuery=false)
+    void deleteFavoritesByMovieId(@Param("movieid")Integer movieid);
 }

@@ -48,15 +48,24 @@
     border: 1px solid #696A71;
 }
 
-.buttonsWrapper {
 
-}
-
-
-.content .editFields .buttonsSave {
+.content .editFields .buttonsAdd {
     background-color: green;
 }
 
-.content .editFields .buttonsDelete {
-    background-color: red;
+.actorsToAddWrapper {
+    margin-top: 10px;
+}
+
+.actorsToAddWrapper .actorsToAdd {
+    /*margin: 10px 0px;*/
+}
+
+.actorsToAddWrapper .actorsToAdd button.removeActor {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background-color: #1E1F23;
+    margin-left: 3px;
+    margin: 0;
 }

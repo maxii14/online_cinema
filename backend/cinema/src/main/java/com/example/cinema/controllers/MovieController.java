@@ -1,8 +1,10 @@
 package com.example.cinema.controllers;
 
 import com.example.cinema.models.Movie;
+import com.example.cinema.models.MovieActorsMapping;
 import com.example.cinema.models.User;
 import com.example.cinema.models.UserFavorite;
+import com.example.cinema.repositories.MovieActorsMappingRepository;
 import com.example.cinema.repositories.MovieRepository;
 import com.example.cinema.repositories.UserFavoritesRepository;
 import com.example.cinema.repositories.UserRepository;
@@ -35,6 +37,8 @@ public class MovieController {
     MovieRepository movieRepository;
     @Autowired
     UserFavoritesRepository userFavoritesRepository;
+    @Autowired
+    MovieActorsMappingRepository movieActorsMappingRepository;
     @Autowired
     StreamingService streamingService;
 
@@ -79,6 +83,32 @@ public class MovieController {
         return new ResponseEntity<Object>(uf, HttpStatus.OK);
     }
 
+    @PostMapping("/movies/addactor")
+    public ResponseEntity<Object> addNewActorToAMovie(@RequestBody Map<String, Integer> credentials) {
+        MovieActorsMapping movieActorsMapping = new MovieActorsMapping();
+        movieActorsMapping.movieId = credentials.get("movieid");
+        movieActorsMapping.actorid = credentials.get("actorid");
+        MovieActorsMapping newMam = movieActorsMappingRepository.save(movieActorsMapping);
+        return new ResponseEntity<Object>(movieActorsMapping, HttpStatus.OK);
+    }
+
+    @PostMapping("/movies/addmovie")
+    public ResponseEntity<Object> saveNewMovie(@RequestBody Map<String, String> credentials) {
+        Movie movie = new Movie();
+
+        movie.imgpath = credentials.get("imgpath");
+        movie.name = credentials.get("name");
+        movie.description = credentials.get("description");
+        movie.genre = credentials.get("genre");
+        movie.country = credentials.get("country");
+        movie.date = Integer.parseInt(credentials.get("date"));
+        movie.viewsnumber = 0;
+        movie.videopath = credentials.get("videopath");
+
+        Movie newMovie = movieRepository.save(movie);
+        return new ResponseEntity<Object>(movie, HttpStatus.OK);
+    }
+
     @PutMapping("/movies/update")
     public ResponseEntity<Object> updateMovie(@RequestBody Map<String, String> credentials) {
 
@@ -94,6 +124,29 @@ public class MovieController {
                 credentials.get("country"));
 
         return new ResponseEntity<Object>("Updated successfully", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/movies/delete")
+    public ResponseEntity<Object> deleteMovie(@RequestBody Map<String, Integer> credentials) {
+        Integer movieId = credentials.get("movieid");
+        Optional<Movie> movie = movieRepository.findById(movieId);
+
+        Map<String, Boolean> resp = new HashMap<>();
+
+        if (movie.isPresent()) {
+            //Сначала удаляем фильм из избранного у всех пользователей, чтобы не произошло ForeignKey error
+            userFavoritesRepository.deleteFavoritesByMovieId(movieId);
+            //А также удаляем все связи удаляемого фильма с актёрами
+            movieActorsMappingRepository.deleteAllActorsOfMovieByMovieId(movieId);
+
+            movieRepository.deleteMovie(movieId);
+            resp.put("deleted", Boolean.TRUE);
+        }
+        else {
+            resp.put("deleted", Boolean.FALSE);
+        }
+
+        return ResponseEntity.ok(resp);
     }
 
     @DeleteMapping("/movies/deletefavorite")

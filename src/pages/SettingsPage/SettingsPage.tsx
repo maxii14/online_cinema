@@ -4,6 +4,7 @@ import LeftSideBar from "../../components/LeftSideBar/LeftSideBar";
 import { IMovie, IActor } from "../../types/types";
 import ActorEditListContent from "../../components/ActorsListContent/ActorsEditListContet";
 import MovieEditListContent from "../../components/MoviesListContent/MoviesEditListContent";
+import { Link } from "react-router-dom";
 
 interface SettingsPageProps {
     movies: IMovie[],
@@ -75,8 +76,18 @@ const SettingsPage: FC<SettingsPageProps> = ({movies, actors}) => {
                     <button ref={usersTabRef} onClick={buttonUsersHandler}> Пользователи </button>    
                 </div>
                 <div className={styles.component}>
-                    <div ref={moviesComponentRef} className={styles.movieList}><MovieEditListContent movies={movies} /></div>
-                    <div ref={actorsComponentRef} className={styles.actorList}><ActorEditListContent actors={actors} /></div>
+                    <div ref={moviesComponentRef} className={styles.movieList}>
+                        <Link to='/addmovie'>
+                            <button>Добавить фильм</button>
+                        </Link>
+                        <MovieEditListContent movies={movies} />
+                    </div>
+                    <div ref={actorsComponentRef} className={styles.actorList}>
+                        <Link to='/addactor'>
+                            <button>Добавить актёра</button>
+                        </Link>
+                        <ActorEditListContent actors={actors} />
+                    </div>
                     <div ref={usersComponentRef} className={styles.usersList}>Users</div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import com.example.cinema.models.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -29,6 +30,11 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
     @Query(value="UPDATE Movie m SET m.name = ?2, m.genre = ?3, m.description = ?4, m.date = ?5, " +
             "m.imgpath = ?6, m.videopath = ?7, m.country = ?8 WHERE m.id = ?1", nativeQuery=false)
     void updateMovie(int id, String name, String genre, String description, int date, String imgpath, String videopath, String country);
+
+    @Modifying
+    @Transactional
+    @Query(value="DELETE FROM Movie WHERE id=:movieid", nativeQuery=false)
+    void deleteMovie(@Param("movieid")Integer movieid);
 
     /*@Query(value="UPDATE cinema.userhistory\n" +
             "inner join\n" +

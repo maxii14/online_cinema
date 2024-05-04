@@ -11,6 +11,7 @@ const LoginPage = ({type, callbackSaveUser}) => {
     const passwordRef = useRef();
     const emptyFieldErrorRef = useRef();
     const incorrectDataRef = useRef();
+    const userIsBlockedRef = useRef();
     const nav = useNavigate();
 
     useEffect(() => {
@@ -33,8 +34,14 @@ const LoginPage = ({type, callbackSaveUser}) => {
 
         axios.post(`${API_SIGNIN_URL}`, {login, password})
             .then (resp => {
-                callbackSaveUser(JSON.stringify(resp.data));
-                nav("/");
+                if(!resp.data["blocked"]) {
+                    callbackSaveUser(JSON.stringify(resp.data));
+                    nav("/");
+                }
+                else {
+                    userIsBlockedRef.current.hidden = false;
+                }
+                
             })
             .catch( err => {
                 incorrectDataRef.current.hidden = false;
@@ -44,6 +51,7 @@ const LoginPage = ({type, callbackSaveUser}) => {
     const inputChanged = () => {
         emptyFieldErrorRef.current.hidden = true;
         incorrectDataRef.current.hidden = true;
+        userIsBlockedRef.current.hidden = true;
     }
 
     return (
@@ -53,6 +61,7 @@ const LoginPage = ({type, callbackSaveUser}) => {
                 <input onChange={inputChanged} type="password" placeholder="Пароль" ref={passwordRef} />
                 <span className={styles.errorMessage} hidden={true} ref={emptyFieldErrorRef}>Поля не могут оставаться пустыми</span>
                 <span className={styles.errorMessage} hidden={true} ref={incorrectDataRef}>Неверные данные</span>
+                <span className={styles.errorMessage} hidden={true} ref={userIsBlockedRef}>Пользователь заблокирован</span>
                 <button onClick={buttonHandler}> Войти </button>
                 <span> Ещё не зарегистрированы?</span>
                 <Link to='/signup'>
