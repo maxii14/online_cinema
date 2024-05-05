@@ -12,6 +12,7 @@ import SignUpPage from "../../pages/SignUpPage/SignUpPage";
 import SettingsPage from "../../pages/SettingsPage/SettingsPage";
 import EditMoviePage from "../../pages/EditMoviePage/EditMoviePage";
 import AddMoviePage from "../../pages/ActorPage/AddMoviePage/AddMoviePage";
+import SearchPage from "../../pages/SearchPage/SearchPage";
 
 const API_URL = 'http://localhost:8081/api/v1'
 
@@ -145,6 +146,8 @@ const Router:FC = () => {
                 <Route path='/' element={<MainPage movies={movies} favoritesMovies={favoritesMovies} historyMovies={historyMovies}/>} />
                 <Route path='/movie/:id' element={<MoviePage movies={movies} actors={actors} callbackChangeIsInFavorites={callbackChangeIsInFavorites}/>} />
                 <Route path='/actor/:id' element={<ActorPage movies={movies} actors={actors} />} />
+
+                <Route path='/search' element={<SearchPage movies={movies} actors={actors} />} />
 
                 <Route path='/signin' element={<SignInPage type="link" callbackSaveUser={saveUser}/>} />
                 <Route path='/signout' element={<SignInPage type="signout" callbackSaveUser={saveUser}/>} />

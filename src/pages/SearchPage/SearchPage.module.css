@@ -1,0 +1,39 @@
+.contentWrapper {
+    display: flex;
+    overflow: hidden;
+}
+
+.contentWrapper .content {
+    padding-top: 25px; 
+    display: flex;
+    flex-direction: column;
+    width: 81%;
+    max-width: 81%;
+}
+
+.contentWrapper .content .title {
+    font-size: 25px;
+    font-weight: bold;
+    cursor: default;
+    margin-bottom: 15px;
+    margin-left: 25px;
+}
+
+.contentWrapper .content input {
+    font-size: 20px;
+    width: 400px;
+    background-color: #222327;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    margin-bottom: 25px;
+    margin-left: 25px;
+}
+
+.contentWrapper .content input:focus {
+    border: 1px solid #E10002;
+}
+
+.contentWrapper .content .components {
+    border-top: 1px solid #323338;
+}
