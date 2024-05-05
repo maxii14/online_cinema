@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 
 const SignUp = () => {
+
+    const API_SIGNUP_URL = 'http://localhost:8081/auth/newuser';
     
     const loginRef = useRef();
     const passwordRef = useRef();
@@ -17,6 +19,16 @@ const SignUp = () => {
             errorRef.current.hidden = false;
             return;
         }
+
+        axios.post(`${API_SIGNUP_URL}`, {login, password})
+            .then (resp => {
+                //callbackSaveUser(JSON.stringify(resp.data));
+                //nav("/");    
+                console.log(resp);
+            })
+            .catch(err => {
+                
+            });
 
         //axios.post(`http://localhost:8081/login`, {login, password});
     }

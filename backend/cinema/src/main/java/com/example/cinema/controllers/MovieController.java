@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
@@ -41,6 +40,11 @@ public class MovieController {
     MovieActorsMappingRepository movieActorsMappingRepository;
     @Autowired
     StreamingService streamingService;
+
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
     @GetMapping(value = "movie/{title}", produces = "video/mp4")
     public Mono<Resource> getVideoChunk(@PathVariable String title) {
@@ -112,7 +116,7 @@ public class MovieController {
     @PutMapping("/movies/update")
     public ResponseEntity<Object> updateMovie(@RequestBody Map<String, String> credentials) {
 
-        System.out.println(Integer.parseInt(credentials.get("id")));
+        //System.out.println(Integer.parseInt(credentials.get("id")));
         movieRepository.updateMovie(
                 Integer.parseInt(credentials.get("id")),
                 credentials.get("name"),
@@ -122,6 +126,16 @@ public class MovieController {
                 credentials.get("imgpath"),
                 credentials.get("videopath"),
                 credentials.get("country"));
+
+        return new ResponseEntity<Object>("Updated successfully", HttpStatus.OK);
+    }
+
+    @PutMapping("/users/update")
+    public ResponseEntity<Object> updateUser(@RequestBody Map<String, String> credentials) {
+
+        int userId = Integer.parseInt(credentials.get("userId"));
+        boolean isBlocked = credentials.get("isBlocked").equals("true");
+        userRepository.updateIsBlocked(userId, isBlocked);
 
         return new ResponseEntity<Object>("Updated successfully", HttpStatus.OK);
     }
@@ -153,7 +167,7 @@ public class MovieController {
     public ResponseEntity<Object> deleteFav(@RequestBody Map<String, Integer> credentials) {
         Integer userId = credentials.get("userid");
         Integer movieId = credentials.get("movieid");
-        Optional<User> user = userRepository.findById(Long.valueOf(userId));
+        Optional<User> user = userRepository.findById(userId);
         Optional<Movie> movie = movieRepository.findById(movieId);
         Optional<Integer> favoriteLineId = movieRepository.getFavoriteByUserIdAndMovieId(userId, movieId);
 

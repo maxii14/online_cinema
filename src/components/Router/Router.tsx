@@ -29,13 +29,13 @@ const Router:FC = () => {
         
         if (userData !== null) {
 
-            axios.get(`${API_URL}/movies`, {headers : {Authorization : JSON.parse(userData).token}})
+            axios.get(`${API_URL}/movies`, {headers: {Authorization: JSON.parse(userData).token}})
                 .then(response => {
                     setMovies(response.data);
 
                     //Получаем фильмы из избранного
                     axios.get(`${API_URL}/movies/userfavorites/${JSON.parse(userData).id}`, 
-                    {headers : {Authorization : JSON.parse(userData).token}})
+                    {headers: {Authorization: JSON.parse(userData).token}})
                     .then(response1 => {
                         const arr = [];
                         const mv = response.data;
@@ -55,7 +55,7 @@ const Router:FC = () => {
 
                     //Получаем фильмы из истории просмотров
                     axios.get(`${API_URL}/movies/userhistory/${JSON.parse(userData).id}`, 
-                    {headers : {Authorization : JSON.parse(userData).token}})
+                    {headers: {Authorization: JSON.parse(userData).token}})
                     .then(response1 => {
                         const arr = [];
                         const mv = response.data;
@@ -76,7 +76,7 @@ const Router:FC = () => {
                 .catch(() => {});
 
 
-            axios.get(`${API_URL}/actors`, {headers : {Authorization : JSON.parse(userData).token}})
+            axios.get(`${API_URL}/actors`, {headers: {Authorization: JSON.parse(userData).token}})
                 .then(response => {
                     const actorList: IActor[] = [];
 

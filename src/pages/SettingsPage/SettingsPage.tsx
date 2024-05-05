@@ -4,7 +4,8 @@ import LeftSideBar from "../../components/LeftSideBar/LeftSideBar";
 import { IMovie, IActor } from "../../types/types";
 import ActorEditListContent from "../../components/ActorsListContent/ActorsEditListContet";
 import MovieEditListContent from "../../components/MoviesListContent/MoviesEditListContent";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UsersListContent from "../../components/UsersListContent/UsersListContent";
 
 interface SettingsPageProps {
     movies: IMovie[],
@@ -20,12 +21,21 @@ const SettingsPage: FC<SettingsPageProps> = ({movies, actors}) => {
     const actorsComponentRef = useRef<HTMLDivElement>(null);
     const usersComponentRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        moviesTabRef.current!.style.backgroundColor = "#696A71";
+    var userData = localStorage['userData'];
+    const nav = useNavigate();
 
-        moviesComponentRef.current!.hidden = false;
-        actorsComponentRef.current!.hidden = true;
-        usersComponentRef.current!.hidden = true;
+    useEffect(() => {
+
+        if(userData === null)
+            nav('/signin');
+
+        if (JSON.parse(userData).role === 'ADMIN') {
+            moviesTabRef.current!.style.backgroundColor = "#696A71";
+
+            moviesComponentRef.current!.hidden = false;
+            actorsComponentRef.current!.hidden = true;
+            usersComponentRef.current!.hidden = true;
+        }
     }, [movies])
 
     const buttonMoviesHandler = () => {
@@ -67,7 +77,7 @@ const SettingsPage: FC<SettingsPageProps> = ({movies, actors}) => {
     return (
         <div className={styles.contentWrapper}>
             <LeftSideBar />
-            {(JSON.parse(localStorage['userData']).role === 'ADMIN') 
+            {(JSON.parse(userData).role === 'ADMIN') 
             ? <div className={styles.tabsAndComponentWrapper}>
                 <span className={styles.title}>Настройки</span>
                 <div className={styles.tabs}>
@@ -88,10 +98,12 @@ const SettingsPage: FC<SettingsPageProps> = ({movies, actors}) => {
                         </Link>
                         <ActorEditListContent actors={actors} />
                     </div>
-                    <div ref={usersComponentRef} className={styles.usersList}>Users</div>
+                    <div ref={usersComponentRef} className={styles.usersList}>
+                        <UsersListContent />
+                    </div>
                 </div>
             </div>
-            : <p>Админ-панель доступна только для администраторов сервиса.</p>}
+            : <p className={styles.noAccess}>Админ-панель доступна только для администраторов сервиса.</p>}
         </div>
     )
 };

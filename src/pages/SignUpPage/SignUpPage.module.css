@@ -38,6 +38,7 @@
 
 .form b{
     color: #E10002;
+    cursor: pointer;
 }
 
 .form span {

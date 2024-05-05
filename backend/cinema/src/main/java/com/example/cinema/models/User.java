@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 public class User {
 
     public User() { }
-    public User(Long id) {
+    public User(Integer id) {
         this.id = id;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    public long id;
+    public int id;
 
     @Column(name = "login", nullable = false, unique = true)
     public String login;

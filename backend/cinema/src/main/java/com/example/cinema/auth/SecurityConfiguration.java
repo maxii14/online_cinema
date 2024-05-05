@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(final WebSecurity webSecurity) {
         webSecurity.ignoring().antMatchers("/auth/login");
         webSecurity.ignoring().antMatchers("/api/v1/movie/**");
-        webSecurity.ignoring().antMatchers("/api/v1/users");
+        //webSecurity.ignoring().antMatchers("/api/v1/users");
     }
 
     @Override

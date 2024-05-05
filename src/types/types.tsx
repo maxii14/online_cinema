@@ -19,3 +19,11 @@ export interface IActor {
     age: number;
     country: string;
 }
+
+export interface IUser {
+    id: number;
+    login: string;
+    activity: string;
+    role: string;
+    blocked: boolean;
+}

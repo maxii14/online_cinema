@@ -1,0 +1,20 @@
+.contentWrapper {
+    margin-top: 10px;
+}
+
+.contentWrapper .userBlock {
+    border: 1px solid #323338;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.contentWrapper .userBlock:hover {
+    background-color: #696A71;
+}
+
+.contentWrapper .userBlock span {
+    margin-right: 20px;
+    cursor: pointer;
+}
