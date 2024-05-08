@@ -36,14 +36,12 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
     @Query(value="DELETE FROM Movie WHERE id=:movieid", nativeQuery=false)
     void deleteMovie(@Param("movieid")Integer movieid);
 
-    /*@Query(value="UPDATE cinema.userhistory\n" +
-            "inner join\n" +
-            "(\n" +
-            "select min(datewatched) as mindate\n" +
-            "from cinema.userhistory\n" +
-            "group by userid\n" +
-            ") uhf2 on cinema.userhistory.userid = ?1 and cinema.userhistory.datewatched = uhf2.mindate\n" +
-            "SET datewatched = ?2\n" +
-            "where datewatched = uhf2.mindate and userid = ?1", nativeQuery=true)
-    List<Integer> getActorsOfMovieById1(Integer id);*/
+//    @Modifying
+//    @Transactional
+//    @Query(value="UPDATE UserHistory inner join" +
+//            "(select min(datewatched) as mindate from UserHistory group by userid) " +
+//            "uhf2 on userid = ?1 and datewatched = uhf2.mindate" +
+//            " SET datewatched = ?3, movieid = ?2, stoppedontiming = ?4" +
+//            " where datewatched = uhf2.mindate and userid = ?1", nativeQuery=false)
+//    void updateLatestUserHistoryLine(Integer userId, Integer movieId, String dateWatched, String stoppedOnTiming);
 }

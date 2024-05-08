@@ -1,13 +1,7 @@
 package com.example.cinema.controllers;
 
-import com.example.cinema.models.Movie;
-import com.example.cinema.models.MovieActorsMapping;
-import com.example.cinema.models.User;
-import com.example.cinema.models.UserFavorite;
-import com.example.cinema.repositories.MovieActorsMappingRepository;
-import com.example.cinema.repositories.MovieRepository;
-import com.example.cinema.repositories.UserFavoritesRepository;
-import com.example.cinema.repositories.UserRepository;
+import com.example.cinema.models.*;
+import com.example.cinema.repositories.*;
 import com.example.cinema.services.StreamingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -36,6 +30,8 @@ public class MovieController {
     MovieRepository movieRepository;
     @Autowired
     UserFavoritesRepository userFavoritesRepository;
+    @Autowired
+    UserHistoryRepository userHistoryRepository;
     @Autowired
     MovieActorsMappingRepository movieActorsMappingRepository;
     @Autowired
@@ -81,10 +77,42 @@ public class MovieController {
     @PostMapping("/movies/addfavorites")
     public ResponseEntity<Object> saveNewFavorite(@RequestBody Map<String, Integer> credentials) {
         UserFavorite uf = new UserFavorite();
-        uf.movieId = credentials.get("movieid");
         uf.userId = credentials.get("userid");
+        uf.movieId = credentials.get("movieid");
         UserFavorite newUf = userFavoritesRepository.save(uf);
         return new ResponseEntity<Object>(uf, HttpStatus.OK);
+    }
+
+    @PostMapping("/movies/addhistory")
+    public ResponseEntity<Object> updateHistory(@RequestBody Map<String, String> credentials) {
+
+        int userId = Integer.parseInt(credentials.get("userid"));
+        int movieId = Integer.parseInt(credentials.get("movieid"));
+        String datewatched = credentials.get("datewatched");
+        String stoppedontiming = credentials.get("stoppedontiming");
+
+        UserHistory userHistory = new UserHistory();
+        userHistory.userid = userId;
+        userHistory.movieid = movieId;
+        userHistory.datewatched = datewatched;
+        userHistory.stoppedontiming = stoppedontiming;
+        UserHistory newUh = userHistoryRepository.save(userHistory);
+        return new ResponseEntity<Object>(userHistory, HttpStatus.OK);
+
+//        int savedHistoryMoviesNumber = movieRepository.getHistoryByUserId(userId).size();
+//        if (savedHistoryMoviesNumber < 5) {
+//            UserHistory userHistory = new UserHistory();
+//            userHistory.userid = userId;
+//            userHistory.movieid = movieId;
+//            userHistory.datewatched = datewatched;
+//            userHistory.stoppedontiming = stoppedontiming;
+//            UserHistory newUh = userHistoryRepository.save(userHistory);
+//            return new ResponseEntity<Object>(userHistory, HttpStatus.OK);
+//        }
+//        else {
+//            movieRepository.updateLatestUserHistoryLine(userId, movieId, datewatched, stoppedontiming);
+//            return new ResponseEntity<Object>(HttpStatus.OK);
+//        }
     }
 
     @PostMapping("/movies/addactor")

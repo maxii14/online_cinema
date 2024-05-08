@@ -35,6 +35,10 @@ const AddMoviePage:FC<AddMoviePageProps> = ({actors}) => {
             nav('/');
         }
 
+        return () => {
+            console.log("unmounted")
+        }
+
     }, [actors])
 
     const addMovieHandler = () => {
@@ -74,6 +78,10 @@ const AddMoviePage:FC<AddMoviePageProps> = ({actors}) => {
     }
 
     const onSelectActor = (e: any) => {
+        if(e.target.value === "") {
+            return;
+        }
+
         var actorId = -1;
         actors.forEach(a => {
             if (a.name === e.target.value) {
@@ -112,6 +120,7 @@ const AddMoviePage:FC<AddMoviePageProps> = ({actors}) => {
                     <span>Название</span><textarea ref={nameTextArea} rows={1} />
                     <span>Жанр</span>
                     <select ref={genreSelect} >
+                        <option></option>
                         <option>Комедия</option>
                         <option>Драма</option>
                         <option>Фантастика</option>
@@ -128,6 +137,7 @@ const AddMoviePage:FC<AddMoviePageProps> = ({actors}) => {
                     <span>Тег видео</span><textarea ref={videoPathTextArea} rows={1} />
                     <span>Выберите актёра</span>
                     <select ref={actorSelect} onChange={onSelectActor}>
+                        <option></option>
                         {actors.length && actors.map(a => <option key={a.id}>{a.name}</option>)}
                     </select>
                     <div className={styles.actorsToAddWrapper}>

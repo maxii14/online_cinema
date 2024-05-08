@@ -48,13 +48,15 @@ public class UserController {
 
     @PostMapping("/newuser")
     public ResponseEntity<Object> createUser(@RequestBody Map<String, String> credentials) {
-
+        //Получаем логин и пароль из тела запроса
         String login = credentials.get("login");
         String password = credentials.get("password");
+        //Формируем соль, хеш и токен
         String salt = String.valueOf(ThreadLocalRandom.current().nextInt(0, 9 + 1)) + ThreadLocalRandom.current().nextInt(0, 9 + 1);
         String hash = Utils.ComputeHash(password, salt);
         String token = UUID.randomUUID().toString();
 
+        //Заполняем поля
         User user = new User();
         user.login = login;
         user.password = hash;
@@ -64,15 +66,15 @@ public class UserController {
         user.role = "USER";
         user.blocked = false;
         try {
-            User nc = userRepository.save(user);
-            return new ResponseEntity<Object>(nc, HttpStatus.OK);
+            User userToSave = userRepository.save(user);
+            return new ResponseEntity<Object>(userToSave, HttpStatus.OK);
         }
         catch (Exception ex) {
             String error;
             if (ex.getMessage().contains("users.name_UNIQUE"))
-                error = "useralreadyexists";
+                error = "Пользователь уже существует";
             else
-                error = "undefinederror";
+                error = "Ошибка";
 
             Map<String, String> map = new HashMap<>();
             map.put("error", error);
