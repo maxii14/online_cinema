@@ -52,7 +52,7 @@ public class UserController {
         String login = credentials.get("login");
         String password = credentials.get("password");
         //Формируем соль, хеш и токен
-        String salt = String.valueOf(ThreadLocalRandom.current().nextInt(0, 9 + 1)) + ThreadLocalRandom.current().nextInt(0, 9 + 1);
+        String salt = String.valueOf(ThreadLocalRandom.current().nextInt(0, 10)) + ThreadLocalRandom.current().nextInt(0, 10);
         String hash = Utils.ComputeHash(password, salt);
         String token = UUID.randomUUID().toString();
 
@@ -71,10 +71,12 @@ public class UserController {
         }
         catch (Exception ex) {
             String error;
-            if (ex.getMessage().contains("users.name_UNIQUE"))
+            if (ex.getMessage().contains("users.name_UNIQUE")) {
                 error = "Пользователь уже существует";
-            else
+            }
+            else {
                 error = "Ошибка";
+            }
 
             Map<String, String> map = new HashMap<>();
             map.put("error", error);
